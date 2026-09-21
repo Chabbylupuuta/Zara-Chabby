@@ -4,105 +4,95 @@ function LoginForm() {
   const [isLoginMode, setIsLoginMode] = useState(true);
 
   return (
-    <div className="w-[430px] bg-white p-8 rounded-2xl shadow-lg">
-      {/* Header Titles */}
-      <div className="flex justify-center mb-4">
-        <h2 className="text-3xl font-semibold text-center">
-          {isLoginMode ? "Login" : "Sign Up"}
-        </h2>
+    <section className="auth-card" aria-labelledby="auth-title">
+      <div className="auth-brand">
+        <span className="brand-mark">Z</span>
+        <span>Zara Chabby</span>
       </div>
 
-      {/* Tab Controls */}
-      <div className="relative flex h-12 mb-6 border border-gray-300 rounded-full overflow-hidden">
+      <div className="auth-heading">
+        <p className="eyebrow">Welcome back</p>
+        <h1 id="auth-title">
+          {isLoginMode ? "Login" : "Sign Up"}
+        </h1>
+        <p className="auth-subtitle">
+          {isLoginMode
+            ? "Sign in to continue your journey with us."
+            : "Create your account and make it yours."}
+        </p>
+      </div>
+
+      <div className="auth-tabs" role="tablist" aria-label="Authentication mode">
         <button
-          className={`w-1/2 text-lg font-medium transition-all z-10 ${
-            isLoginMode ? "text-white" : "text-black"
-          }`}
+          type="button"
+          className={isLoginMode ? "active" : ""}
+          role="tab"
+          aria-selected={isLoginMode}
           onClick={() => setIsLoginMode(true)}
         >
           Login
         </button>
         <button
-          className={`w-1/2 text-lg font-medium transition-all z-10 ${
-            !isLoginMode ? "text-white" : "text-black"
-          }`}
+          type="button"
+          className={!isLoginMode ? "active" : ""}
+          role="tab"
+          aria-selected={!isLoginMode}
           onClick={() => setIsLoginMode(false)}
         >
-          Signup
+          Sign up
         </button>
-        <div
-          className={`absolute top-0 h-full w-1/2 rounded-full bg-gradient-to-r from-blue-700 via-cyan-600 to-cyan-200 transition-all ${
-            isLoginMode ? "left-0" : "left-1/2"
-          }`}
-        ></div>
       </div>
 
-      {/* Form Section */}
-      <form className="space-y-4">
-        {/* Signup-only Field */}
+      <form className="auth-form">
         {!isLoginMode && (
-          <input
-            type="text"
-            placeholder="Name"
-            required
-            className="w-full p-3 border-b-2 border-gray-300 outline-none focus:border-cyan-500 placeholder-gray-400"
-          />
+          <label>
+            Full name
+            <input type="text" placeholder="Your name" required />
+          </label>
         )}
 
-        {/* Shared Fields */}
-        <input
-          type="email"
-          placeholder="Email Address"
-          required
-          className="w-full p-3 border-b-2 border-gray-300 outline-none focus:border-cyan-500 placeholder-gray-400"
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          required
-          className="w-full p-3 border-b-2 border-gray-300 outline-none focus:border-cyan-500 placeholder-gray-400"
-        />
+        <label>
+          Email address
+          <input type="email" placeholder="you@example.com" required />
+        </label>
+        <label>
+          Password
+          <input type="password" placeholder="Enter your password" required />
+        </label>
 
-        {/* Signup-only Field */}
         {!isLoginMode && (
-          <input
-            type="password"
-            placeholder="Confirm Password"
-            required
-            className="w-full p-3 border-b-2 border-gray-300 outline-none focus:border-cyan-500 placeholder-gray-400"
-          />
+          <label>
+            Confirm password
+            <input type="password" placeholder="Repeat your password" required />
+          </label>
         )}
 
-        {/* Forgot Password (Only for Login) */}
         {isLoginMode && (
-          <div className="text-right">
-            <a href="#" className="text-cyan-600 hover:underline">
-              Forgot password?
-            </a>
+          <div className="form-meta">
+            <label className="remember-me">
+              <input type="checkbox" />
+              <span>Remember me</span>
+            </label>
+            <a href="#">Forgot password?</a>
           </div>
         )}
 
-        {/* Submit Button */}
-        <button className="w-full p-3 bg-gradient-to-r from-blue-700 via-cyan-600 to-cyan-200 text-white rounded-full text-lg font-medium hover:opacity-90 transition">
-          {isLoginMode ? "Login" : "Signup"}
+        <button type="submit" className="submit-button">
+          {isLoginMode ? "Login" : "Create account"}
+          <span aria-hidden="true">&#8594;</span>
         </button>
 
-        {/* Switch Mode Link */}
-        <p className="text-center text-gray-600">
+        <p className="auth-switch">
           {isLoginMode ? "Don't have an account?" : "Already have an account?"}{" "}
-          <a
-            href="#"
-            onClick={(e) => {
-              e.preventDefault();
-              setIsLoginMode(!isLoginMode);
-            }}
-            className="text-cyan-600 hover:underline"
+          <button
+            type="button"
+            onClick={() => setIsLoginMode(!isLoginMode)}
           >
-            {isLoginMode ? "Signup now" : "Login"}
-          </a>
+            {isLoginMode ? "Sign up" : "Login"}
+          </button>
         </p>
       </form>
-    </div>
+    </section>
   );
 }
 
