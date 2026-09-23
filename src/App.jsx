@@ -3,11 +3,7 @@ import Login from './Components/Login'
 
 
 const App = () => {
-  return (
-    <main className='auth-shell'>
-      <Login />
-    </main>
-  )
+  return <Login />
 }
 
 export default App
