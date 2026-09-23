@@ -2,8 +2,8 @@
 
 :root {
   font-family: "Trebuchet MS", "Segoe UI", sans-serif;
-  color: #183b43;
-  background: #f3f7f3;
+  color: #078f6d;
+  background: #7fbd9b;
   font-synthesis: none;
 }
 
@@ -204,7 +204,7 @@ input {
 }
 
 .submit-button:hover {
-  background: #d77d43;
+  background: #217b7e;
   transform: translateY(-1px);
 }
 
