@@ -1,6 +1,8 @@
 import { useState } from "react";
 import DownGoing from "../chapters/DownGoing";
 import ThresholdOfMadasara from "../chapters/ThresholdOfMadasara";
+import SermonOfTheBrokenLedger from "../chapters/SermonOfTheBrokenLedger";
+import TightropeWalkersShadow from "../chapters/TightropeWalkersShadow";
 
 const books = [
 	{
@@ -9,7 +11,7 @@ const books = [
 		chapters: [
 			"ZARACHABBY'S DOWNGOING",
 			"OF THE THRESHOLD OF MADASARA",
-			"OF THE BROKEN LEDGER",
+			"THE SERMON OF THE BROKEN LEDGER",
 			"OF THE TIGHTROPE WALKER'S SHADOW",
 			"OF THE TROUBLED WORKER",
 			"OF WOMEN",
@@ -62,6 +64,26 @@ function Home({ user, onSignOut }) {
 	if (activeChapter === 2) {
 		return (
 			<ThresholdOfMadasara
+				user={user}
+				onBack={() => setActiveChapter(null)}
+				onSignOut={onSignOut}
+			/>
+		);
+	}
+
+	if (activeChapter === 3) {
+		return (
+			<SermonOfTheBrokenLedger
+				user={user}
+				onBack={() => setActiveChapter(null)}
+				onSignOut={onSignOut}
+			/>
+		);
+	}
+
+	if (activeChapter === 4) {
+		return (
+			<TightropeWalkersShadow
 				user={user}
 				onBack={() => setActiveChapter(null)}
 				onSignOut={onSignOut}
@@ -143,7 +165,7 @@ function Home({ user, onSignOut }) {
 								</div>
 								<ol>
 									{book.chapters.map((chapter, index) => {
-										const isReadableChapter = book.number === "Book 1" && index < 2;
+										const isReadableChapter = book.number === "Book 1" && index < 4;
 
 										return (
 											<li className={isReadableChapter ? "readable" : ""} key={chapter}>

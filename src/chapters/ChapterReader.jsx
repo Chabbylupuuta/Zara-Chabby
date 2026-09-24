@@ -3,7 +3,7 @@ import { useState } from "react";
 const chapterList = [
   "ZARACHABBY'S DOWNGOING",
   "OF THE THRESHOLD OF MADASARA",
-  "OF THE BROKEN LEDGER",
+  "THE SERMON OF THE BROKEN LEDGER",
   "OF THE TIGHTROPE WALKER'S SHADOW",
   "OF THE TROUBLED WORKER",
   "OF WOMEN",
@@ -61,7 +61,7 @@ function ChapterReader({ user, onBack, onSignOut, chapterText, chapterTitle, cha
           <ol>
             {chapterList.map((chapter, index) => {
               const isCurrent = index === chapterNumber - 1;
-              const isAvailable = index < 2;
+              const isAvailable = index < 4;
               return (
                 <li className={isCurrent ? "active" : ""} key={chapter}>
                   <button type="button" disabled={!isAvailable} aria-current={isCurrent ? "page" : undefined}>
