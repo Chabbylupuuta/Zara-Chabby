@@ -5,7 +5,7 @@ const chapterList = [
   "OF THE THRESHOLD OF MADASARA",
   "THE SERMON OF THE BROKEN LEDGER",
   "OF THE TIGHTROPE WALKER'S SHADOW",
-  "OF THE TROUBLED WORKER",
+  "THE TROUBLED WORKER",
   "OF WOMEN",
   "OF THE FESTIVAL OF THE LAST MEN",
 ];
@@ -61,7 +61,7 @@ function ChapterReader({ user, onBack, onSignOut, chapterText, chapterTitle, cha
           <ol>
             {chapterList.map((chapter, index) => {
               const isCurrent = index === chapterNumber - 1;
-              const isAvailable = index < 4;
+              const isAvailable = index < 5;
               return (
                 <li className={isCurrent ? "active" : ""} key={chapter}>
                   <button type="button" disabled={!isAvailable} aria-current={isCurrent ? "page" : undefined}>

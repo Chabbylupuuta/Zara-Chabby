@@ -3,6 +3,7 @@ import DownGoing from "../chapters/DownGoing";
 import ThresholdOfMadasara from "../chapters/ThresholdOfMadasara";
 import SermonOfTheBrokenLedger from "../chapters/SermonOfTheBrokenLedger";
 import TightropeWalkersShadow from "../chapters/TightropeWalkersShadow";
+import TroubledWorker from "../chapters/TroubledWorker";
 
 const books = [
 	{
@@ -13,7 +14,7 @@ const books = [
 			"OF THE THRESHOLD OF MADASARA",
 			"THE SERMON OF THE BROKEN LEDGER",
 			"OF THE TIGHTROPE WALKER'S SHADOW",
-			"OF THE TROUBLED WORKER",
+			"THE TROUBLED WORKER",
 			"OF WOMEN",
 			"OF THE FESTIVAL OF THE LAST MEN",
 		],
@@ -84,6 +85,16 @@ function Home({ user, onSignOut }) {
 	if (activeChapter === 4) {
 		return (
 			<TightropeWalkersShadow
+				user={user}
+				onBack={() => setActiveChapter(null)}
+				onSignOut={onSignOut}
+			/>
+		);
+	}
+
+	if (activeChapter === 5) {
+		return (
+			<TroubledWorker
 				user={user}
 				onBack={() => setActiveChapter(null)}
 				onSignOut={onSignOut}
@@ -165,7 +176,7 @@ function Home({ user, onSignOut }) {
 								</div>
 								<ol>
 									{book.chapters.map((chapter, index) => {
-										const isReadableChapter = book.number === "Book 1" && index < 4;
+										const isReadableChapter = book.number === "Book 1" && index < 5;
 
 										return (
 											<li className={isReadableChapter ? "readable" : ""} key={chapter}>
