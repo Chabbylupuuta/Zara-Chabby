@@ -4,6 +4,12 @@ import ThresholdOfMadasara from "../chapters/ThresholdOfMadasara";
 import SermonOfTheBrokenLedger from "../chapters/SermonOfTheBrokenLedger";
 import TightropeWalkersShadow from "../chapters/TightropeWalkersShadow";
 import TroubledWorker from "../chapters/TroubledWorker";
+import OnWomen from "../chapters/OnWomen";
+import FestivalOfTheLastMen from "../chapters/FestivalOfTheLastMen";
+import FrontalStab from "../chapters/FrontalStab";
+import MarketOfEmptyPraise from "../chapters/MarketOfEmptyPraise";
+import WeightOfHonestEyes from "../chapters/WeightOfHonestEyes";
+import EnemyWhoElevates from "../chapters/EnemyWhoElevates";
 
 const books = [
 	{
@@ -102,6 +108,70 @@ function Home({ user, onSignOut }) {
 		);
 	}
 
+	if (activeChapter === 6) {
+		return (
+			<OnWomen
+				user={user}
+				onBack={() => setActiveChapter(null)}
+				onSignOut={onSignOut}
+			/>
+		);
+	}
+
+	if (activeChapter === 7) {
+		return (
+			<FestivalOfTheLastMen
+				user={user}
+				onBack={() => setActiveChapter(null)}
+				onSignOut={onSignOut}
+			/>
+		);
+	}
+
+	if (activeChapter === 10) {
+		return (
+			<FrontalStab
+				user={user}
+				onBack={() => setActiveChapter(null)}
+				onSignOut={onSignOut}
+				onNextChapter={() => setActiveChapter(11)}
+			/>
+		);
+	}
+
+	if (activeChapter === 11) {
+		return (
+			<MarketOfEmptyPraise
+				user={user}
+				onBack={() => setActiveChapter(null)}
+				onSignOut={onSignOut}
+				onNextChapter={() => setActiveChapter(12)}
+			/>
+		);
+	}
+
+	if (activeChapter === 12) {
+		return (
+			<WeightOfHonestEyes
+				user={user}
+				onBack={() => setActiveChapter(null)}
+				onSignOut={onSignOut}
+				onNextChapter={() => setActiveChapter(13)}
+			/>
+		);
+	}
+
+	if (activeChapter === 13) {
+		return (
+			<EnemyWhoElevates
+				user={user}
+				onBack={() => setActiveChapter(null)}
+				onSignOut={onSignOut}
+				onNextChapter={() => setActiveChapter(14)}
+			/>
+		);
+	}
+
 	return (
 		<main className="book-home">
 			<nav className="book-nav" aria-label="Main navigation">
@@ -176,14 +246,22 @@ function Home({ user, onSignOut }) {
 								</div>
 								<ol>
 									{book.chapters.map((chapter, index) => {
-										const isReadableChapter = book.number === "Book 1" && index < 5;
+										const isBookOneReadable = book.number === "Book 1" && index < 7;
+										const bookTwoChapterMap = {
+											"THE FRONTAL STAB (A LESSON IN FRIENDSHIP)": 10,
+											"THE MARKET OF EMPTY PRAISE": 11,
+											"THE WEIGHT OF HONEST EYES": 12,
+											"THE ENEMY WHO ELEVATES": 13,
+										};
+										const chapterKey = book.number === "Book 1" ? index + 1 : bookTwoChapterMap[chapter];
+										const isReadableChapter = !!chapterKey || isBookOneReadable;
 
 										return (
 											<li className={isReadableChapter ? "readable" : ""} key={chapter}>
 												<button
 													type="button"
 													disabled={!isReadableChapter}
-													onClick={() => setActiveChapter(index + 1)}
+													onClick={() => chapterKey && setActiveChapter(chapterKey)}
 												>
 													{chapter}
 												</button>

@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const chapterList = [
+const bookOneChapterList = [
   "ZARACHABBY'S DOWNGOING",
   "OF THE THRESHOLD OF MADASARA",
   "THE SERMON OF THE BROKEN LEDGER",
@@ -10,7 +10,30 @@ const chapterList = [
   "OF THE FESTIVAL OF THE LAST MEN",
 ];
 
-function ChapterReader({ user, onBack, onSignOut, chapterText, chapterTitle, chapterNumber }) {
+const bookTwoChapterList = [
+  "THE FRONTAL STAB (A LESSON IN FRIENDSHIP)",
+  "THE MARKET OF EMPTY PRAISE",
+  "THE COWARDICE OF AGREEMENT",
+  "THE WEIGHT OF HONEST EYES",
+  "THE BETRAYAL OF SOFT WORDS",
+  "THE ENEMY WHO ELEVATES",
+  "THE TRIAL OF THE TRUE FRIEND",
+  "THE BIRTH OF THE HIGHER BOND",
+  "THE LAST FRIEND",
+];
+
+function ChapterReader({
+  user,
+  onBack,
+  onSignOut,
+  chapterText,
+  chapterTitle,
+  chapterNumber,
+  bookLabel = "Book 1",
+  chapterList = bookOneChapterList,
+  onNextChapter,
+  nextChapterLabel,
+}) {
   const [pageIndex, setPageIndex] = useState(0);
   const [pageDirection, setPageDirection] = useState("next");
   const paragraphs = chapterText
@@ -48,20 +71,20 @@ function ChapterReader({ user, onBack, onSignOut, chapterText, chapterTitle, cha
 
       <div className="chapter-progress-wrap" aria-label={`Chapter progress: ${progress}%`}>
         <div className="chapter-progress-meta">
-          <span>Book 1 / {chapterTitle}</span>
+          <span>{bookLabel} / {chapterTitle}</span>
           <span>{progress}% read</span>
         </div>
         <progress className="chapter-progress" value={progress} max="100">{progress}%</progress>
       </div>
 
       <div className="chapter-layout">
-        <aside className="chapter-sidebar" aria-label="Book 1 chapters">
-          <p className="eyebrow">Book 1</p>
-          <h2>ZARACHABBY'S DOWNGOING</h2>
+        <aside className="chapter-sidebar" aria-label={`${bookLabel} chapters`}>
+          <p className="eyebrow">{bookLabel}</p>
+          <h2>{chapterTitle}</h2>
           <ol>
             {chapterList.map((chapter, index) => {
               const isCurrent = index === chapterNumber - 1;
-              const isAvailable = index < 5;
+              const isAvailable = bookLabel === "Book 2" ? index === 0 : index < 7;
               return (
                 <li className={isCurrent ? "active" : ""} key={chapter}>
                   <button type="button" disabled={!isAvailable} aria-current={isCurrent ? "page" : undefined}>
@@ -76,7 +99,7 @@ function ChapterReader({ user, onBack, onSignOut, chapterText, chapterTitle, cha
 
         <article key={pageIndex} className={`chapter-reading page-${pageDirection}`}>
           <header className="chapter-heading">
-            <p className="chapter-kicker">Book 1 / Chapter {chapterNumber} / {page.label}</p>
+            <p className="chapter-kicker">{bookLabel} / Chapter {chapterNumber} / {page.label}</p>
             <h1>{chapterTitle}</h1>
             <p className="chapter-deck">A descent into the world below, where certainty begins to crack.</p>
             <div className="chapter-rule" aria-hidden="true" />
@@ -99,12 +122,21 @@ function ChapterReader({ user, onBack, onSignOut, chapterText, chapterTitle, cha
               Next page <span aria-hidden="true">&#8594;</span>
             </button>
           </footer>
+
+          {pageIndex === pages.length - 1 && onNextChapter && (
+            <div className="chapter-next-step">
+              <button type="button" className="primary-book-button" onClick={onNextChapter}>
+                Continue to next chapter: {nextChapterLabel || "Next chapter"}
+                <span aria-hidden="true"> &#8594;</span>
+              </button>
+            </div>
+          )}
         </article>
       </div>
 
       <footer className="site-footer chapter-site-footer">
         <span>Thus spoke Zara Chabby</span>
-        <span>Book 1 / {chapterTitle}</span>
+        <span>{bookLabel} / {chapterTitle}</span>
         <button type="button" onClick={onBack}>Back to contents &#8593;</button>
       </footer>
     </main>
