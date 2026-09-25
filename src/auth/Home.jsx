@@ -10,11 +10,14 @@ import FrontalStab from "../chapters/FrontalStab";
 import MarketOfEmptyPraise from "../chapters/MarketOfEmptyPraise";
 import WeightOfHonestEyes from "../chapters/WeightOfHonestEyes";
 import EnemyWhoElevates from "../chapters/EnemyWhoElevates";
+import TrialOfTheTrueFriend from "../chapters/TrialOfTheTrueFriend";
+import BirthOfTheHigherBond from "../chapters/BirthOfTheHigherBond";
+import LastFriend from "../chapters/LastFriend";
 
 const books = [
 	{
 		number: "Book 1",
-		
+		description: "The beginning of the descent.",
 		chapters: [
 			"ZARACHABBY'S DOWNGOING",
 			"OF THE THRESHOLD OF MADASARA",
@@ -27,7 +30,8 @@ const books = [
 	},
 	{
 		number: "Book 2",
-		
+		title: "The higher bond",
+		description: "A complete book on friendship, truth, and release.",
 		chapters: [
        "THE FRONTAL STAB (A LESSON IN FRIENDSHIP)",
 			"THE MARKET OF EMPTY PRAISE",
@@ -42,7 +46,7 @@ const books = [
 	},
 	{
 		number: "Book 3",
-	
+		description: "The next horizon is still being written.",
 		chapters: [
 			"OF THE CHILD IN THE CLEARING",
 			"OF THE OLD WARRIOR",
@@ -172,6 +176,38 @@ function Home({ user, onSignOut }) {
 		);
 	}
 
+	if (activeChapter === 14) {
+		return (
+			<TrialOfTheTrueFriend
+				user={user}
+				onBack={() => setActiveChapter(null)}
+				onSignOut={onSignOut}
+				onNextChapter={() => setActiveChapter(15)}
+			/>
+		);
+	}
+
+	if (activeChapter === 15) {
+		return (
+			<BirthOfTheHigherBond
+				user={user}
+				onBack={() => setActiveChapter(null)}
+				onSignOut={onSignOut}
+				onNextChapter={() => setActiveChapter(16)}
+			/>
+		);
+	}
+
+	if (activeChapter === 16) {
+		return (
+			<LastFriend
+				user={user}
+				onBack={() => setActiveChapter(null)}
+				onSignOut={onSignOut}
+			/>
+		);
+	}
+
 	return (
 		<main className="book-home">
 			<nav className="book-nav" aria-label="Main navigation">
@@ -239,10 +275,11 @@ function Home({ user, onSignOut }) {
 					<h2>Three books. One descent into meaning.</h2>
 					<div className="chapter-grid">
 						{books.map((book) => (
-							<article className="chapter-book" key={book.number}>
+											<article className={`chapter-book ${book.number === "Book 2" ? "chapter-book-featured" : ""}`} key={book.number}>
 								<div className="chapter-book-heading">
 									<span>{book.number}</span>
 									{book.title && <h3>{book.title}</h3>}
+													<p>{book.description}</p>
 								</div>
 								<ol>
 									{book.chapters.map((chapter, index) => {
@@ -252,6 +289,9 @@ function Home({ user, onSignOut }) {
 											"THE MARKET OF EMPTY PRAISE": 11,
 											"THE WEIGHT OF HONEST EYES": 12,
 											"THE ENEMY WHO ELEVATES": 13,
+											"THE TRIAL OF THE TRUE FRIEND": 14,
+											"THE BIRTH OF THE HIGHER BOND": 15,
+											"THE LAST FRIEND": 16,
 										};
 										const chapterKey = book.number === "Book 1" ? index + 1 : bookTwoChapterMap[chapter];
 										const isReadableChapter = !!chapterKey || isBookOneReadable;

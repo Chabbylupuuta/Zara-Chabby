@@ -10,18 +10,6 @@ const bookOneChapterList = [
   "OF THE FESTIVAL OF THE LAST MEN",
 ];
 
-const bookTwoChapterList = [
-  "THE FRONTAL STAB (A LESSON IN FRIENDSHIP)",
-  "THE MARKET OF EMPTY PRAISE",
-  "THE COWARDICE OF AGREEMENT",
-  "THE WEIGHT OF HONEST EYES",
-  "THE BETRAYAL OF SOFT WORDS",
-  "THE ENEMY WHO ELEVATES",
-  "THE TRIAL OF THE TRUE FRIEND",
-  "THE BIRTH OF THE HIGHER BOND",
-  "THE LAST FRIEND",
-];
-
 function ChapterReader({
   user,
   onBack,
@@ -84,7 +72,7 @@ function ChapterReader({
           <ol>
             {chapterList.map((chapter, index) => {
               const isCurrent = index === chapterNumber - 1;
-              const isAvailable = bookLabel === "Book 2" ? index === 0 : index < 7;
+              const isAvailable = bookLabel === "Book 2" ? index < 9 : index < 7;
               return (
                 <li className={isCurrent ? "active" : ""} key={chapter}>
                   <button type="button" disabled={!isAvailable} aria-current={isCurrent ? "page" : undefined}>

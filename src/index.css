@@ -961,6 +961,19 @@ input {
   text-transform: uppercase;
 }
 
+.chapter-next-step {
+  display: flex;
+  justify-content: center;
+  margin-top: 32px;
+}
+
+.chapter-next-step .primary-book-button {
+  width: min(100%, 420px);
+  justify-content: center;
+  padding: 16px 22px;
+  font-size: 14px;
+}
+
 .site-footer {
   display: flex;
   align-items: center;
@@ -1156,6 +1169,15 @@ input {
     margin-top: 54px;
   }
 
+  .chapter-next-step {
+    margin-top: 24px;
+  }
+
+  .chapter-next-step .primary-book-button {
+    width: 100%;
+    font-size: 13px;
+  }
+
   .site-footer {
     align-items: flex-start;
     flex-direction: column;
@@ -1190,5 +1212,307 @@ input {
   .chapter-reading.page-next,
   .chapter-reading.page-previous {
     animation: none;
+  }
+}
+
+/* Editorial reading-room refresh */
+:root {
+  font-family: "DM Sans", "Trebuchet MS", sans-serif;
+  color: #173d42;
+  background: #f5efe6;
+}
+
+body {
+  background: #f5efe6;
+}
+
+.auth-shell {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: #173d42;
+  background-image: linear-gradient(135deg, rgba(23, 61, 66, 0.94), rgba(37, 95, 89, 0.9)), repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.035) 0, rgba(255, 255, 255, 0.035) 1px, transparent 1px, transparent 12px);
+}
+
+.auth-shell::before,
+.auth-shell::after {
+  position: absolute;
+  z-index: -1;
+  width: 34vw;
+  height: 34vw;
+  border: 1px solid rgba(241, 170, 108, 0.28);
+  content: "";
+  transform: rotate(28deg);
+}
+
+.auth-shell::before {
+  top: -20vw;
+  left: -11vw;
+}
+
+.auth-shell::after {
+  right: -15vw;
+  bottom: -21vw;
+  border-color: rgba(164, 205, 181, 0.25);
+}
+
+.auth-card {
+  position: relative;
+  border: 1px solid rgba(255, 250, 242, 0.75);
+  border-radius: 6px;
+  box-shadow: 18px 18px 0 rgba(241, 170, 108, 0.92), 0 28px 80px rgba(8, 33, 38, 0.28);
+}
+
+.auth-card::after {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  width: 42px;
+  height: 42px;
+  border-top: 1px solid #d77d43;
+  border-right: 1px solid #d77d43;
+  content: "";
+}
+
+.brand-mark {
+  border-radius: 2px;
+  background: #173d42;
+}
+
+.auth-heading h1,
+.book-intro h1,
+.book-about h2,
+.book-chapters h2,
+.chapter-heading h1,
+.chapter-sidebar h2,
+.chapter-nav-title,
+.book-cover strong,
+.book-excerpt blockquote {
+  font-family: "Cormorant Garamond", Georgia, serif;
+}
+
+.book-home {
+  position: relative;
+  background-color: #173d42;
+  background-image: linear-gradient(rgba(23, 61, 66, 0.9), rgba(23, 61, 66, 0.96)), repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.035) 0, rgba(255, 255, 255, 0.035) 1px, transparent 1px, transparent 7px);
+}
+
+.book-nav {
+  min-height: 78px;
+  padding: 20px 0;
+}
+
+.book-logo {
+  letter-spacing: 0.02em;
+}
+
+.book-logo-mark {
+  border-radius: 3px;
+  background: #d77d43;
+  color: #173d42;
+}
+
+.book-hero {
+  min-height: 680px;
+  padding-top: clamp(78px, 12vw, 140px);
+}
+
+.book-intro h1 {
+  max-width: 700px;
+  font-size: clamp(64px, 9vw, 118px);
+  letter-spacing: -0.02em;
+  line-height: 0.82;
+}
+
+.book-lede {
+  color: #d0ddd2;
+}
+
+.primary-book-button {
+  border-radius: 2px;
+  box-shadow: 5px 5px 0 #d77d43;
+  transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease;
+}
+
+.primary-book-button:hover {
+  background: #f6bd83;
+  box-shadow: 2px 2px 0 #d77d43;
+  transform: translate(3px, 3px);
+}
+
+.secondary-book-button {
+  border-radius: 2px;
+}
+
+.book-cover {
+  border-radius: 2px;
+  box-shadow: 24px 24px 0 #d77d43, 0 22px 35px rgba(4, 28, 32, 0.28);
+}
+
+.book-about,
+.book-chapters,
+.book-excerpt {
+  padding-top: 110px;
+}
+
+.section-index {
+  color: #f6bd83;
+}
+
+.chapter-grid {
+  border-color: rgba(248, 242, 233, 0.25);
+  background: rgba(248, 242, 233, 0.25);
+}
+
+.chapter-book {
+  position: relative;
+  padding: 30px 26px 34px;
+  background: #173d42;
+}
+
+.chapter-book-featured {
+  background: #225b59;
+}
+
+.chapter-book-featured::after {
+  position: absolute;
+  top: 28px;
+  right: 26px;
+  padding: 5px 7px;
+  border: 1px solid rgba(246, 189, 131, 0.65);
+  color: #f6bd83;
+  content: "COMPLETE";
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+
+.chapter-book-heading {
+  min-height: 138px;
+}
+
+.chapter-book-heading p {
+  max-width: 230px;
+  margin: 12px 0 0;
+  color: #b8cbc2;
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.chapter-book li.readable button {
+  color: #f6bd83;
+}
+
+.chapter-book li.readable button:hover {
+  color: #fffaf2;
+  transform: translateX(3px);
+}
+
+.chapter-book li button {
+  transition: color 160ms ease, transform 160ms ease;
+}
+
+.book-excerpt blockquote {
+  max-width: 860px;
+  line-height: 0.98;
+}
+
+.chapter-page {
+  background-color: #f5efe6;
+  background-image: repeating-linear-gradient(0deg, rgba(23, 61, 66, 0.018) 0, rgba(23, 61, 66, 0.018) 1px, transparent 1px, transparent 8px);
+}
+
+.chapter-nav {
+  min-height: 82px;
+}
+
+.back-button,
+.chapter-footer button {
+  transition: color 160ms ease, transform 160ms ease;
+}
+
+.back-button:hover,
+.chapter-footer button:hover {
+  transform: translateX(3px);
+}
+
+.chapter-progress {
+  height: 5px;
+}
+
+.chapter-layout {
+  padding-top: 100px;
+}
+
+.chapter-sidebar {
+  padding: 18px 16px 18px 0;
+  border-right: 1px solid rgba(24, 59, 67, 0.13);
+}
+
+.chapter-sidebar li.active button {
+  background: rgba(215, 125, 67, 0.1);
+}
+
+.chapter-heading h1 {
+  max-width: 760px;
+  font-size: clamp(62px, 9vw, 120px);
+  letter-spacing: -0.025em;
+}
+
+.chapter-deck {
+  color: #557276;
+}
+
+.chapter-manuscript {
+  font-size: 20px;
+  line-height: 1.9;
+}
+
+.chapter-manuscript .chapter-lead {
+  font-size: 29px;
+}
+
+.chapter-footer {
+  margin-top: 86px;
+}
+
+.chapter-next-step .primary-book-button {
+  box-shadow: 5px 5px 0 #d77d43;
+}
+
+@media (max-width: 720px) {
+  .auth-card {
+    box-shadow: 10px 10px 0 rgba(241, 170, 108, 0.92), 0 22px 60px rgba(8, 33, 38, 0.28);
+  }
+
+  .book-hero {
+    min-height: auto;
+  }
+
+  .book-intro h1 {
+    font-size: clamp(62px, 18vw, 92px);
+  }
+
+  .book-cover {
+    box-shadow: 14px 14px 0 #d77d43;
+  }
+
+  .chapter-book-featured::after {
+    top: 30px;
+    right: 24px;
+  }
+
+  .chapter-sidebar {
+    padding: 0 0 20px;
+    border-right: 0;
+    border-bottom: 1px solid rgba(24, 59, 67, 0.13);
+  }
+
+  .chapter-heading h1 {
+    font-size: clamp(52px, 16vw, 82px);
+  }
+
+  .chapter-manuscript {
+    font-size: 18px;
   }
 }

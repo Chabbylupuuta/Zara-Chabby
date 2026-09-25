@@ -1,9 +1,14 @@
-import React from 'react'
-import Login from './Components/Login'
-
+import React from 'react';
+import { Analytics } from '@vercel/analytics/react';
+import Login from './Components/Login';
 
 const App = () => {
-  return <Login />
-}
+  return (
+    <>
+      <Login />
+      <Analytics />
+    </>
+  );
+};
 
-export default App
+export default App;

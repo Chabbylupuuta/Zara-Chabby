@@ -125,19 +125,19 @@ function LoginForm() {
     <main className="auth-shell">
       <section className="auth-card" aria-labelledby="auth-title">
       <div className="auth-brand">
-        <span className="brand-mark"> 💀</span>
+        <span className="brand-mark">Z</span>
         <span>Zara Chabby</span>
       </div>
 
       <div className="auth-heading">
-        <p className="eyebrow">☁️☁️☁️</p>
+        <p className="eyebrow">A private reading room</p>
         <h1 id="auth-title">
           {isLoginMode ? "Login" : "Sign Up"}
         </h1>
         <p className="auth-subtitle">
           {isLoginMode
-            ? "Sign in to continue your journey with us."
-            : "Create your account and make it yours."}
+            ? "Return to the story whenever you are ready."
+            : "Make a place for the story to stay with you."}
         </p>
       </div>
 
