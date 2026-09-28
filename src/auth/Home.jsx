@@ -9,10 +9,18 @@ import FestivalOfTheLastMen from "../chapters/FestivalOfTheLastMen";
 import FrontalStab from "../chapters/FrontalStab";
 import MarketOfEmptyPraise from "../chapters/MarketOfEmptyPraise";
 import WeightOfHonestEyes from "../chapters/WeightOfHonestEyes";
+import BetrayalOfSoftWords from "../chapters/BetrayalOfSoftWords";
 import EnemyWhoElevates from "../chapters/EnemyWhoElevates";
 import TrialOfTheTrueFriend from "../chapters/TrialOfTheTrueFriend";
 import BirthOfTheHigherBond from "../chapters/BirthOfTheHigherBond";
 import LastFriend from "../chapters/LastFriend";
+import OfTheChildInTheClearing from "../chapters/OfTheChildInTheClearing";
+import OfTheOldWarrior from "../chapters/OfTheOldWarrior";
+import OfTheVoyageI from "../chapters/OfTheVoyageI";
+import OfTheVoyageII from "../chapters/OfTheVoyageII";
+import OfTheVoyageIII from "../chapters/OfTheVoyageIII";
+import OfTheReturningStranger from "../chapters/OfTheReturningStranger";
+import BonusSecondDownGoing from "../chapters/BonusSecondDownGoing";
 
 const books = [
 	{
@@ -35,9 +43,8 @@ const books = [
 		chapters: [
        "THE FRONTAL STAB (A LESSON IN FRIENDSHIP)",
 			"THE MARKET OF EMPTY PRAISE",
-			"THE COWARDICE OF AGREEMENT",
 			"THE WEIGHT OF HONEST EYES",
-			"THE BETRAYAL OF SOFT WORDS",
+			"The Betrayal of Soft Words",
 			"THE ENEMY WHO ELEVATES",
 			"THE TRIAL OF THE TRUE FRIEND",
 			"THE BIRTH OF THE HIGHER BOND",
@@ -46,7 +53,8 @@ const books = [
 	},
 	{
 		number: "Book 3",
-		description: "The next horizon is still being written.",
+		title: "The returning stranger",
+		description: "A return through silence, change, and the lives that remain.",
 		chapters: [
 			"OF THE CHILD IN THE CLEARING",
 			"OF THE OLD WARRIOR",
@@ -55,6 +63,7 @@ const books = [
 			"OF THE VOYAGE II",
 			"OF THE VOYAGE III",
 			"OF THE RETURNING STRANGER",
+			"BONUS CHAPTER: THE SECOND DOWN-GOING",
 		],
 	},
 ];
@@ -167,7 +176,7 @@ function Home({ user, onSignOut }) {
 
 	if (activeChapter === 13) {
 		return (
-			<EnemyWhoElevates
+			<BetrayalOfSoftWords
 				user={user}
 				onBack={() => setActiveChapter(null)}
 				onSignOut={onSignOut}
@@ -178,7 +187,7 @@ function Home({ user, onSignOut }) {
 
 	if (activeChapter === 14) {
 		return (
-			<TrialOfTheTrueFriend
+			<EnemyWhoElevates
 				user={user}
 				onBack={() => setActiveChapter(null)}
 				onSignOut={onSignOut}
@@ -189,7 +198,7 @@ function Home({ user, onSignOut }) {
 
 	if (activeChapter === 15) {
 		return (
-			<BirthOfTheHigherBond
+			<TrialOfTheTrueFriend
 				user={user}
 				onBack={() => setActiveChapter(null)}
 				onSignOut={onSignOut}
@@ -200,7 +209,91 @@ function Home({ user, onSignOut }) {
 
 	if (activeChapter === 16) {
 		return (
+			<BirthOfTheHigherBond
+				user={user}
+				onBack={() => setActiveChapter(null)}
+				onSignOut={onSignOut}
+				onNextChapter={() => setActiveChapter(17)}
+			/>
+		);
+	}
+
+	if (activeChapter === 17) {
+		return (
 			<LastFriend
+				user={user}
+				onBack={() => setActiveChapter(null)}
+				onSignOut={onSignOut}
+				onNextChapter={() => setActiveChapter(18)}
+			/>
+		);
+	}
+
+	if (activeChapter === 18) {
+		return (
+			<OfTheChildInTheClearing
+				user={user}
+				onBack={() => setActiveChapter(null)}
+				onSignOut={onSignOut}
+				onNextChapter={() => setActiveChapter(19)}
+			/>
+		);
+	}
+
+	if (activeChapter === 19) {
+		return (
+			<OfTheOldWarrior
+				user={user}
+				onBack={() => setActiveChapter(null)}
+				onSignOut={onSignOut}
+			/>
+		);
+	}
+
+	if (activeChapter === 21) {
+		return (
+			<OfTheVoyageI
+				user={user}
+				onBack={() => setActiveChapter(null)}
+				onSignOut={onSignOut}
+			/>
+		);
+	}
+
+	if (activeChapter === 22) {
+		return (
+			<OfTheVoyageII
+				user={user}
+				onBack={() => setActiveChapter(null)}
+				onSignOut={onSignOut}
+			/>
+		);
+	}
+
+	if (activeChapter === 23) {
+		return (
+			<OfTheVoyageIII
+				user={user}
+				onBack={() => setActiveChapter(null)}
+				onSignOut={onSignOut}
+			/>
+		);
+	}
+
+	if (activeChapter === 24) {
+		return (
+			<OfTheReturningStranger
+				user={user}
+				onBack={() => setActiveChapter(null)}
+				onSignOut={onSignOut}
+				onNextChapter={() => setActiveChapter(25)}
+			/>
+		);
+	}
+
+	if (activeChapter === 25) {
+		return (
+			<BonusSecondDownGoing
 				user={user}
 				onBack={() => setActiveChapter(null)}
 				onSignOut={onSignOut}
@@ -275,26 +368,44 @@ function Home({ user, onSignOut }) {
 					<h2>Three books. One descent into meaning.</h2>
 					<div className="chapter-grid">
 						{books.map((book) => (
-											<article className={`chapter-book ${book.number === "Book 2" ? "chapter-book-featured" : ""}`} key={book.number}>
+							<article className={`chapter-book ${book.number === "Book 2" ? "chapter-book-featured" : ""}`} key={book.number}>
 								<div className="chapter-book-heading">
 									<span>{book.number}</span>
 									{book.title && <h3>{book.title}</h3>}
-													<p>{book.description}</p>
+									<p>{book.description}</p>
 								</div>
 								<ol>
 									{book.chapters.map((chapter, index) => {
 										const isBookOneReadable = book.number === "Book 1" && index < 7;
+										const isBookThreeReadable = book.number === "Book 3" && index < 7;
 										const bookTwoChapterMap = {
 											"THE FRONTAL STAB (A LESSON IN FRIENDSHIP)": 10,
 											"THE MARKET OF EMPTY PRAISE": 11,
 											"THE WEIGHT OF HONEST EYES": 12,
-											"THE ENEMY WHO ELEVATES": 13,
-											"THE TRIAL OF THE TRUE FRIEND": 14,
-											"THE BIRTH OF THE HIGHER BOND": 15,
-											"THE LAST FRIEND": 16,
+											"THE BETRAYAL OF SOFT WORDS": 13,
+											"The Betrayal of Soft Words": 13,
+											"THE ENEMY WHO ELEVATES": 14,
+											"THE TRIAL OF THE TRUE FRIEND": 15,
+											"THE BIRTH OF THE HIGHER BOND": 16,
+											"THE LAST FRIEND": 17,
 										};
-										const chapterKey = book.number === "Book 1" ? index + 1 : bookTwoChapterMap[chapter];
-										const isReadableChapter = !!chapterKey || isBookOneReadable;
+										const bookThreeChapterMap = {
+											"OF THE CHILD IN THE CLEARING": 18,
+											"OF THE OLD WARRIOR": 19,
+											"OF THE LAST NOON": 20,
+											"OF THE VOYAGE I": 21,
+											"OF THE VOYAGE II": 22,
+											"OF THE VOYAGE III": 23,
+											"OF THE RETURNING STRANGER": 24,
+											"BONUS CHAPTER: THE SECOND DOWN-GOING": 25,
+										};
+										const chapterKey =
+											book.number === "Book 1"
+												? index + 1
+												: book.number === "Book 3"
+													? bookThreeChapterMap[chapter]
+													: bookTwoChapterMap[chapter] ?? bookTwoChapterMap[chapter.toUpperCase()];
+										const isReadableChapter = !!chapterKey || isBookOneReadable || isBookThreeReadable;
 
 										return (
 											<li className={isReadableChapter ? "readable" : ""} key={chapter}>

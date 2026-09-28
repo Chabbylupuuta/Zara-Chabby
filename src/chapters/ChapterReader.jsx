@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const bookOneChapterList = [
   "ZARACHABBY'S DOWNGOING",
@@ -24,17 +24,26 @@ function ChapterReader({
 }) {
   const [pageIndex, setPageIndex] = useState(0);
   const [pageDirection, setPageDirection] = useState("next");
+  const [readerFontSize, setReaderFontSize] = useState(20);
   const paragraphs = chapterText
     .split(/\r?\n+/)
     .map((paragraph) => paragraph.trim())
     .filter(Boolean);
-  const pageSize = Math.max(1, Math.ceil(paragraphs.length / 3));
-  const pages = Array.from({ length: 3 }, (_, index) => ({
-    label: `Page ${index + 1}`,
-    paragraphs: paragraphs.slice(index * pageSize, (index + 1) * pageSize),
-  }));
+  const pages = [];
+  let currentPage = [];
+  let currentPageLength = 0;
+  paragraphs.forEach((paragraph) => {
+    if (currentPage.length && currentPageLength + paragraph.length > 2800) {
+      pages.push(currentPage);
+      currentPage = [];
+      currentPageLength = 0;
+    }
+    currentPage.push(paragraph);
+    currentPageLength += paragraph.length;
+  });
+  if (currentPage.length) pages.push(currentPage);
   const progress = Math.round(((pageIndex + 1) / pages.length) * 100);
-  const page = pages[pageIndex];
+  const currentPageParagraphs = pages[pageIndex] || [];
 
   const changePage = (nextIndex) => {
     if (nextIndex < 0 || nextIndex >= pages.length) return;
@@ -42,6 +51,29 @@ function ChapterReader({
     setPageIndex(nextIndex);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
+
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.altKey || event.ctrlKey || event.metaKey) return;
+      if (["INPUT", "TEXTAREA", "SELECT"].includes(event.target.tagName)) return;
+      if (event.key === "ArrowLeft") {
+        goToPage(event, pageIndex - 1);
+      } else if (event.key === "ArrowRight") {
+        goToPage(event, pageIndex + 1);
+      }
+    };
+
+    const goToPage = (event, nextIndex) => {
+      if (nextIndex < 0 || nextIndex >= pages.length) return;
+      event.preventDefault();
+      setPageDirection(nextIndex > pageIndex ? "next" : "previous");
+      setPageIndex(nextIndex);
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [pageIndex, pages.length]);
 
   return (
     <main className="chapter-page">
@@ -72,7 +104,8 @@ function ChapterReader({
           <ol>
             {chapterList.map((chapter, index) => {
               const isCurrent = index === chapterNumber - 1;
-              const isAvailable = bookLabel === "Book 2" ? index < 9 : index < 7;
+              const isAvailable =
+                bookLabel === "Book 2" ? index < 9 : bookLabel === "Book 3" ? index < 8 : index < 7;
               return (
                 <li className={isCurrent ? "active" : ""} key={chapter}>
                   <button type="button" disabled={!isAvailable} aria-current={isCurrent ? "page" : undefined}>
@@ -87,14 +120,33 @@ function ChapterReader({
 
         <article key={pageIndex} className={`chapter-reading page-${pageDirection}`}>
           <header className="chapter-heading">
-            <p className="chapter-kicker">{bookLabel} / Chapter {chapterNumber} / {page.label}</p>
+            <p className="chapter-kicker">{bookLabel} / Chapter {chapterNumber} / Page {pageIndex + 1}</p>
             <h1>{chapterTitle}</h1>
             <p className="chapter-deck">A descent into the world below, where certainty begins to crack.</p>
+            <div className="reader-type-controls" role="group" aria-label="Reading text size">
+              <button
+                type="button"
+                aria-label="Decrease text size"
+                onClick={() => setReaderFontSize((size) => Math.max(16, size - 2))}
+                disabled={readerFontSize === 16}
+              >
+                A−
+              </button>
+              <span aria-live="polite">{readerFontSize}px</span>
+              <button
+                type="button"
+                aria-label="Increase text size"
+                onClick={() => setReaderFontSize((size) => Math.min(28, size + 2))}
+                disabled={readerFontSize === 28}
+              >
+                A+
+              </button>
+            </div>
             <div className="chapter-rule" aria-hidden="true" />
           </header>
 
-          <div className="chapter-manuscript">
-            {page.paragraphs.map((paragraph, index) => (
+          <div className="chapter-manuscript" style={{ "--reader-font-size": `${readerFontSize}px` }}>
+            {currentPageParagraphs.map((paragraph, index) => (
               <p className={index === 0 ? "chapter-lead" : ""} key={`${pageIndex}-${index}`}>
                 {paragraph}
               </p>
@@ -102,11 +154,11 @@ function ChapterReader({
           </div>
 
           <footer className="chapter-footer">
-            <button type="button" onClick={() => changePage(pageIndex - 1)} disabled={pageIndex === 0}>
+            <button type="button" onClick={() => changePage(pageIndex - 1)} disabled={pageIndex === 0} aria-keyshortcuts="ArrowLeft">
               <span aria-hidden="true">&#8592;</span> Previous page
             </button>
-            <span>Page {pageIndex + 1} of {pages.length}</span>
-            <button type="button" onClick={() => changePage(pageIndex + 1)} disabled={pageIndex === pages.length - 1}>
+            <span>{progress}% · Page {pageIndex + 1} of {pages.length}</span>
+            <button type="button" onClick={() => changePage(pageIndex + 1)} disabled={pageIndex === pages.length - 1} aria-keyshortcuts="ArrowRight">
               Next page <span aria-hidden="true">&#8594;</span>
             </button>
           </footer>
