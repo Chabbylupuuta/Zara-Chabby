@@ -1,4 +1,4 @@
-import chapterText from "./OF THE VOYAGE III.txt?raw";
+import chapterText from "./OF THE LAST NOON.txt?raw";
 import ChapterReader from "./ChapterReader";
 
 const bookThreeChapters = [
@@ -11,21 +11,21 @@ const bookThreeChapters = [
   "OF THE RETURNING STRANGER",
 ];
 
-function OfTheVoyageIII({ user, onBack, onSignOut, onNextChapter }) {
+function OfTheLastNoon({ user, onBack, onSignOut, onNextChapter }) {
   return (
     <ChapterReader
       user={user}
       onBack={onBack}
       onSignOut={onSignOut}
       onNextChapter={onNextChapter}
-      nextChapterLabel="OF THE RETURNING STRANGER"
+      nextChapterLabel="OF THE VOYAGE I"
       chapterText={chapterText}
-      chapterTitle="OF THE VOYAGE III"
-      chapterNumber={6}
+      chapterTitle="OF THE LAST NOON"
+      chapterNumber={3}
       bookLabel="Book 3"
       chapterList={bookThreeChapters}
     />
   );
 }
 
-export default OfTheVoyageIII;
+export default OfTheLastNoon;

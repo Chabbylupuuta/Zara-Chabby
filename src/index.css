@@ -1578,3 +1578,102 @@ body {
     grid-row: 1;
   }
 }
+
+.book-cover {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background-color: #e9a56a;
+  background-image:
+    linear-gradient(145deg, rgba(255, 250, 242, 0.32), transparent 52%),
+    repeating-linear-gradient(0deg, rgba(24, 59, 67, 0.035) 0, rgba(24, 59, 67, 0.035) 1px, transparent 1px, transparent 5px);
+}
+
+.book-cover::before {
+  position: absolute;
+  z-index: -1;
+  top: 24%;
+  left: 12%;
+  width: 76%;
+  aspect-ratio: 1;
+  border: 1px solid rgba(24, 59, 67, 0.35);
+  border-radius: 50%;
+  box-shadow: 0 0 0 14px rgba(24, 59, 67, 0.045), 0 0 0 15px rgba(24, 59, 67, 0.22);
+  content: "";
+}
+
+.book-cover::after {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 10px;
+  border-left: 1px solid rgba(24, 59, 67, 0.22);
+  background: rgba(24, 59, 67, 0.1);
+  content: "";
+}
+
+.cover-kicker,
+.cover-title,
+.cover-author {
+  position: relative;
+  z-index: 1;
+}
+
+.chapter-reading {
+  position: relative;
+  padding: clamp(26px, 4vw, 54px);
+  border: 1px solid rgba(24, 59, 67, 0.1);
+  background:
+    repeating-linear-gradient(0deg, rgba(23, 61, 66, 0.018) 0, rgba(23, 61, 66, 0.018) 1px, transparent 1px, transparent 9px),
+    rgba(255, 250, 242, 0.82);
+  box-shadow: 0 18px 48px rgba(24, 59, 67, 0.09);
+}
+
+.chapter-reading::before {
+  position: absolute;
+  top: 0;
+  right: clamp(26px, 4vw, 54px);
+  left: clamp(26px, 4vw, 54px);
+  height: 4px;
+  background: linear-gradient(90deg, #d77d43 0 52px, rgba(24, 59, 67, 0.12) 52px);
+  content: "";
+}
+
+.chapter-book {
+  transition: background-color 180ms ease;
+}
+
+.chapter-book:nth-child(3) {
+  background: #1c484b;
+}
+
+.chapter-book li.readable button {
+  border-radius: 2px;
+  cursor: pointer;
+  transition: color 160ms ease, transform 160ms ease, background-color 160ms ease;
+}
+
+.chapter-book li.readable button:hover {
+  background: rgba(248, 242, 233, 0.06);
+  transform: translateX(4px);
+}
+
+.chapter-book li.readable button:focus-visible,
+.book-nav a:focus-visible,
+.book-actions a:focus-visible,
+.primary-book-button:focus-visible {
+  outline: 2px solid #f6bd83;
+  outline-offset: 4px;
+}
+
+.chapter-book li button:disabled {
+  cursor: not-allowed;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chapter-book,
+  .chapter-book li.readable button {
+    transition: none;
+  }
+}

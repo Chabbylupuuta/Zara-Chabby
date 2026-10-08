@@ -11,12 +11,14 @@ const bookThreeChapters = [
   "OF THE RETURNING STRANGER",
 ];
 
-function OfTheVoyageI({ user, onBack, onSignOut }) {
+function OfTheVoyageI({ user, onBack, onSignOut, onNextChapter }) {
   return (
     <ChapterReader
       user={user}
       onBack={onBack}
       onSignOut={onSignOut}
+      onNextChapter={onNextChapter}
+      nextChapterLabel="OF THE VOYAGE II"
       chapterText={chapterText}
       chapterTitle="OF THE VOYAGE I"
       chapterNumber={4}

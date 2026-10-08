@@ -16,6 +16,7 @@ import BirthOfTheHigherBond from "../chapters/BirthOfTheHigherBond";
 import LastFriend from "../chapters/LastFriend";
 import OfTheChildInTheClearing from "../chapters/OfTheChildInTheClearing";
 import OfTheOldWarrior from "../chapters/OfTheOldWarrior";
+import OfTheLastNoon from "../chapters/OfTheLastNoon";
 import OfTheVoyageI from "../chapters/OfTheVoyageI";
 import OfTheVoyageII from "../chapters/OfTheVoyageII";
 import OfTheVoyageIII from "../chapters/OfTheVoyageIII";
@@ -25,7 +26,8 @@ import BonusSecondDownGoing from "../chapters/BonusSecondDownGoing";
 const books = [
 	{
 		number: "Book 1",
-		description: "The beginning of the descent.",
+		title: "The descent",
+		description: "Where the journey begins, and the familiar world falls away.",
 		chapters: [
 			"ZARACHABBY'S DOWNGOING",
 			"OF THE THRESHOLD OF MADASARA",
@@ -39,7 +41,7 @@ const books = [
 	{
 		number: "Book 2",
 		title: "The higher bond",
-		description: "A complete book on friendship, truth, and release.",
+		description: "A reckoning with friendship, honesty, and the ties that hold.",
 		chapters: [
        "THE FRONTAL STAB (A LESSON IN FRIENDSHIP)",
 			"THE MARKET OF EMPTY PRAISE",
@@ -67,6 +69,28 @@ const books = [
 		],
 	},
 ];
+
+const bookTwoChapterMap = {
+	"THE FRONTAL STAB (A LESSON IN FRIENDSHIP)": 10,
+	"THE MARKET OF EMPTY PRAISE": 11,
+	"THE WEIGHT OF HONEST EYES": 12,
+	"THE BETRAYAL OF SOFT WORDS": 13,
+	"THE ENEMY WHO ELEVATES": 14,
+	"THE TRIAL OF THE TRUE FRIEND": 15,
+	"THE BIRTH OF THE HIGHER BOND": 16,
+	"THE LAST FRIEND": 17,
+};
+
+const bookThreeChapterMap = {
+	"OF THE CHILD IN THE CLEARING": 18,
+	"OF THE OLD WARRIOR": 19,
+	"OF THE LAST NOON": 20,
+	"OF THE VOYAGE I": 21,
+	"OF THE VOYAGE II": 22,
+	"OF THE VOYAGE III": 23,
+	"OF THE RETURNING STRANGER": 24,
+	"BONUS CHAPTER: THE SECOND DOWN-GOING": 25,
+};
 
 function Home({ user, onSignOut }) {
 	const [activeChapter, setActiveChapter] = useState(null);
@@ -246,6 +270,18 @@ function Home({ user, onSignOut }) {
 				user={user}
 				onBack={() => setActiveChapter(null)}
 				onSignOut={onSignOut}
+				onNextChapter={() => setActiveChapter(20)}
+			/>
+		);
+	}
+
+	if (activeChapter === 20) {
+		return (
+			<OfTheLastNoon
+				user={user}
+				onBack={() => setActiveChapter(null)}
+				onSignOut={onSignOut}
+				onNextChapter={() => setActiveChapter(21)}
 			/>
 		);
 	}
@@ -256,6 +292,7 @@ function Home({ user, onSignOut }) {
 				user={user}
 				onBack={() => setActiveChapter(null)}
 				onSignOut={onSignOut}
+				onNextChapter={() => setActiveChapter(22)}
 			/>
 		);
 	}
@@ -266,6 +303,7 @@ function Home({ user, onSignOut }) {
 				user={user}
 				onBack={() => setActiveChapter(null)}
 				onSignOut={onSignOut}
+				onNextChapter={() => setActiveChapter(23)}
 			/>
 		);
 	}
@@ -276,6 +314,7 @@ function Home({ user, onSignOut }) {
 				user={user}
 				onBack={() => setActiveChapter(null)}
 				onSignOut={onSignOut}
+				onNextChapter={() => setActiveChapter(24)}
 			/>
 		);
 	}
@@ -376,43 +415,20 @@ function Home({ user, onSignOut }) {
 								</div>
 								<ol>
 									{book.chapters.map((chapter, index) => {
-										const isBookOneReadable = book.number === "Book 1" && index < 7;
-										const isBookThreeReadable = book.number === "Book 3" && index < 7;
-										const bookTwoChapterMap = {
-											"THE FRONTAL STAB (A LESSON IN FRIENDSHIP)": 10,
-											"THE MARKET OF EMPTY PRAISE": 11,
-											"THE WEIGHT OF HONEST EYES": 12,
-											"THE BETRAYAL OF SOFT WORDS": 13,
-											"The Betrayal of Soft Words": 13,
-											"THE ENEMY WHO ELEVATES": 14,
-											"THE TRIAL OF THE TRUE FRIEND": 15,
-											"THE BIRTH OF THE HIGHER BOND": 16,
-											"THE LAST FRIEND": 17,
-										};
-										const bookThreeChapterMap = {
-											"OF THE CHILD IN THE CLEARING": 18,
-											"OF THE OLD WARRIOR": 19,
-											"OF THE LAST NOON": 20,
-											"OF THE VOYAGE I": 21,
-											"OF THE VOYAGE II": 22,
-											"OF THE VOYAGE III": 23,
-											"OF THE RETURNING STRANGER": 24,
-											"BONUS CHAPTER: THE SECOND DOWN-GOING": 25,
-										};
 										const chapterKey =
 											book.number === "Book 1"
 												? index + 1
 												: book.number === "Book 3"
-													? bookThreeChapterMap[chapter]
-													: bookTwoChapterMap[chapter] ?? bookTwoChapterMap[chapter.toUpperCase()];
-										const isReadableChapter = !!chapterKey || isBookOneReadable || isBookThreeReadable;
+													? bookThreeChapterMap[chapter.toUpperCase()]
+													: bookTwoChapterMap[chapter.toUpperCase()];
+										const isReadableChapter = Number.isInteger(chapterKey);
 
 										return (
 											<li className={isReadableChapter ? "readable" : ""} key={chapter}>
 												<button
 													type="button"
 													disabled={!isReadableChapter}
-													onClick={() => chapterKey && setActiveChapter(chapterKey)}
+													onClick={() => setActiveChapter(chapterKey)}
 												>
 													{chapter}
 												</button>
@@ -431,8 +447,7 @@ function Home({ user, onSignOut }) {
 				<div>
 					<p className="eyebrow">From the opening pages</p>
 					<blockquote>
-						“There are names that follow you, and names that wait for you. Zara
-						heard his in the distance and turned toward it.”
+						“The book is written in a way that captures the essence of human connection and the complexities of our relationships.”
 					</blockquote>
 					<p className="excerpt-note">More of the story is waiting inside.</p>
 				</div>
